@@ -3,11 +3,29 @@ html{
 }
 
 body{
-    background: url() no-repeat center center fixed;
+    background: url('/media/background.jpg') no-repeat center center fixed;
     background-size: cover;
-    height: calc(100vh-164px);
+    height: calc(100vh - 164px);
     color: #555;
     font-family: 'Lato'
+}
+
+.container-fluid{
+    padding-left: 0;
+    padding-right: 0;
+}
+/*nav*/
+.navbar-nav{
+    margin-left: auto;
+    margin-right: 0;
+}
+
+.nav-item{
+    padding-right: 1rem;
+}
+
+.link-format{
+    font-size: 1.5rem;
 }
 
 /*from bulma*/
@@ -21,6 +39,18 @@ body{
 
 .logo-font{
     text-transform: uppercase;
+    font-family: 'Krona One', sans-serif;
+}
+
+.main-page-font{
+    text-transform: uppercase;
+    font-family: 'Abril Fatface', cursive;
+    
+}
+.main-page-margins{
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 70vh;
 }
 
 .main-logo-link{
@@ -28,8 +58,8 @@ body{
 }
 
 .shop-now-button{
-    background: black;
-    color: white;
+    background:white ;
+    color: black;
     min-width: 260px;
 }
 
@@ -45,17 +75,36 @@ body{
 .btn-black:active,
 .btn-black:focus{
     background: #222;
-    color: white;
+    color: white ;
 }
 
-.text-black{
-    color: #000 !important;
+.text-white{
+    color: #ffffff !important;
 }
 
 .border-black{
     border: 1px solid black !important;
 }
 
+.bg-black{
+    background-color: #000 !important;
+}
+
+.bg-nav,
+.black-color{
+    background-color: black;
+    opacity: 0.8;
+}
+
+.overlay{
+    height: 100%;
+    width: 100%;
+    top: 0;
+    left: 0;
+    position: fixed;
+    background: white;
+    z-index: -1;
+}
 /*-----------------------------------------Media Queries*/
 /*Slight larger container*/
 @media(min-width: 1200px){
