@@ -5,7 +5,7 @@ html{
 body{
     background: url('/media/background.jpg') no-repeat center center fixed;
     background-size: cover;
-    height: calc(100vh - 164px);
+    height: calc(100vh - 80px);
     color: #555;
     font-family: 'Lato'
 }
@@ -105,6 +105,11 @@ body{
     background: white;
     z-index: -1;
 }
+
+a.category-badge > span.badge:hover {
+    background: #212529 !important;
+    color: #fff !important;
+}
 /*-----------------------------------------Media Queries*/
 /*Slight larger container*/
 @media(min-width: 1200px){
@@ -124,6 +129,6 @@ body{
     }
 
     .header-container{
-        padding-top: 164px;
+        padding-top: 80px;
     }
 }
