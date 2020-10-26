@@ -43,6 +43,8 @@ def all_products(request):
             products = products.filter(queries)
 
     current_sorting = f'{sort}_{direction}'
+    for category in categories:
+        print(f"*** category : {category} and name of it is {category.name}**")
 
     context = {
         'products': products,
