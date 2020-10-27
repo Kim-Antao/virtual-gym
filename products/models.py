@@ -4,8 +4,9 @@ from django.db import models
 class Category(models.Model):
     class Meta:
         verbose_name_plural = 'Categories'
+
     name = models.CharField(max_length=254)
-    
+
     def __str__(self):
         return self.name
 
@@ -24,3 +25,14 @@ class Product(models.Model):
         return self.name
 
 
+class Review(models.Model):
+    product = models.ForeignKey('Product', null=False, blank=False, on_delete=models.CASCADE)
+    user = models.ForeignKey('User', null=False, blank=False, on_delete=models.CASCADE)
+    title = models.CharField(max_length=50)
+    comment = models.TextField()
+    rate = models.IntegerField(default=1)
+    create_at = models.DateTimeField(auto_now_add=True)
+    update_at = models.DateTimeField(auto_now=True)
+
+    def __str__(self):
+        return self.title

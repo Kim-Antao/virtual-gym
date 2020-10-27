@@ -26,10 +26,7 @@
             <div class="col-8 col-lg-3  my-auto py-1 py-lg-0">
                  <div class="sort-select-wrapper w-50 sort-container-margin">
                             <select id="sort-selector" class="custom-select custom-select-sm rounded-0 border border-{% if current_sorting != 'None_None' %}info{% else %}black{% endif %}">
-                                <option value="reset" 
-                                {% if current_sorting == 'None_None' %}selected{% endif %}>
-                                Sort by...
-                                </option>
+                                <option value="reset" {% if current_sorting == 'None_None' %}selected{% endif %}> Sort by... </option>
                                 <option value="price_asc" {% if current_sorting == 'price_asc' %}selected{% endif %}>Price (low to high)</option>
                                 <option value="price_desc" {% if current_sorting == 'price_desc' %}selected{% endif %}>Price (high to low)</option>
                                 <option value="rating_asc" {% if current_sorting == 'rating_asc' %}selected{% endif %}>Rating (low to high)</option>
