@@ -107,11 +107,25 @@ body{
     background-color: #000 !important;
 }
 
+.bg-grey{
+    background-color: grey !important;
+}
 .bg-nav,
 .black-color{
     background-color: black;
     opacity: 0.8;
 }
+
+
+/* card */
+.card-image-height{
+    height: 82%;
+}
+.image-height{
+    height: 100%;
+    object-fit: cover;   
+}
+
 
 .overlay{
     height: 100%;

@@ -47,7 +47,7 @@ INSTALLED_APPS = [
     'products',
     'bag',
     'checkout',
-    'subscriptions'
+    'subscriptions',
 
     # Other
     'crispy_forms',
@@ -180,3 +180,4 @@ STANDARD_DELIVERY_PERCENTAGE = 10
 STRIPE_CURRENCY = 'gbp'
 STRIPE_PUBLIC_KEY = os.getenv('STRIPE_PUBLIC_KEY', '')
 STRIPE_SECRET_KEY = os.getenv('STRIPE_SECRET_KEY', '')
+STRIPE_WH_SECRET = os.getenv('STRIPE_WH_SECRET', '')
