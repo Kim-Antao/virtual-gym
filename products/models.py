@@ -1,5 +1,5 @@
 from django.db import models
-from django.core.validators import MaxValueValidator, MinLengthValidator
+from django.core.validators import MaxValueValidator, MinValueValidator
 
 from profiles.models import UserProfile
 
@@ -32,23 +32,18 @@ class Product(models.Model):
         ratings = Ratings.objects.filter(self)
         return len(ratings)
 
-    def avg_rating(self):
-        sum = 0
-        ratings = Ratings.objects.filter(self)
-        sum += ratings.stars
-        if len(ratings) > 0:
-            return sum / len(ratings)
-        else:
-            return 0
-
 
 class Ratings(models.Model):
     product = models.ForeignKey(Product, on_delete=models.CASCADE)
     user_profile = models.ForeignKey(UserProfile, on_delete=models.SET_NULL,
                                      null=True, blank=True)
-    stars = models.IntegerField(validators=[MinLengthValidator(1),
+    stars = models.IntegerField(validators=[MinValueValidator(1),
                                 MaxValueValidator(5)])
+
+    class Meta:
+        verbose_name_plural = 'Ratings'
+        unique_together = (('product', 'user_profile'),)
+        index_together = (('product', 'user_profile'),)
 
     def __str__(self):
         return self.stars
-
