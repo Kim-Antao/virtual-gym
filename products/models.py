@@ -1,4 +1,7 @@
 from django.db import models
+from django.core.validators import MaxValueValidator, MinLengthValidator
+
+from profiles.models import UserProfile
 
 
 class Category(models.Model):
@@ -12,7 +15,8 @@ class Category(models.Model):
 
 
 class Product(models.Model):
-    category = models.ForeignKey('Category', null=True, blank=True, on_delete=models.SET_NULL)
+    category = models.ForeignKey('Category', null=True, blank=True,
+                                 on_delete=models.SET_NULL)
     sku = models.CharField(max_length=254, null=True, blank=True)
     name = models.CharField(max_length=254)
     description = models.TextField()
@@ -23,3 +27,28 @@ class Product(models.Model):
 
     def __str__(self):
         return self.name
+
+    def no_of_ratings(self):
+        ratings = Ratings.objects.filter(self)
+        return len(ratings)
+
+    def avg_rating(self):
+        sum = 0
+        ratings = Ratings.objects.filter(self)
+        sum += ratings.stars
+        if len(ratings) > 0:
+            return sum / len(ratings)
+        else:
+            return 0
+
+
+class Ratings(models.Model):
+    product = models.ForeignKey(Product, on_delete=models.CASCADE)
+    user_profile = models.ForeignKey(UserProfile, on_delete=models.SET_NULL,
+                                     null=True, blank=True)
+    stars = models.IntegerField(validators=[MinLengthValidator(1),
+                                MaxValueValidator(5)])
+
+    def __str__(self):
+        return self.stars
+

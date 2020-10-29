@@ -9,10 +9,10 @@ from .forms import ProductForm
 
 
 def all_products(request):
-    """A view to show all the products, including sorting and search queries"""
+    """A view to show all the products, including sorting """
     products = Product.objects.all()
     query = None
-    categories = None
+    categories = Category.objects.all
     sort = None
     direction = None
 
@@ -35,15 +35,6 @@ def all_products(request):
             categories = request.GET['category'].split(',')
             products = products.filter(category__name__in=categories)
             categories = Category.objects.filter(name__in=categories)
-
-        if 'q' in request.GET:
-            query = request.GET['q']
-            if not query:
-                messages.error(request, "You didn't enter any serach criteria")
-                return redirect(reverse('products'))
-
-            queries = Q(name_icontains=query) | Q(description_icontains=query)
-            products = products.filter(queries)
 
     current_sorting = f'{sort}_{direction}'
 
