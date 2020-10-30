@@ -305,6 +305,44 @@ a.category-badge > span.badge:hover {
     border-radius: 0;
 }
 
+#login-link:hover,
+#login-link:active,
+#login-link:focus,
+#login-link:link{
+   color: red;
+}
+
+/* review button */
+.review-button{
+    text-decoration: underline;
+}
+
+.review-button.focus, 
+.review-button:focus{
+    box-shadow: none;
+    text-decoration: underline;
+}
+
+
+/*ratings icon customisation  
+code from https://www.youtube.com/watch?v=8xI9o2wpP4w&feature=emb_logo
+*/
+
+.star{
+    color: goldenrod;
+    font-size: 2.0rem;
+    padding: 0 1rem; /* space out the stars */
+}
+
+.star::before{
+    content: '\2606';    /* star outline */
+    cursor: pointer;
+}
+
+.star.rated::before{
+    /* the style for a selected star */
+    content: '\2605';  /* filled star */
+}
 
 
 /*-----------------------------------------Media Queries*/

@@ -1,5 +1,8 @@
+from django.conf import settings
 from django.db import models
-from profiles.models import UserProfile
+from django.db.models.signals import post_save
+
+import stripe
 
 PLAN_CHOICES = (
     ('Bronze', 'br'),
@@ -18,12 +21,26 @@ class Plan(models.Model):
 
 
 class UserMembership(models.Model):
-    user = models.OneToOneField(UserProfile, on_delete=models.CASCADE)
+    user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     stripe_customer_id = models.CharField(max_length=40)
     membership = models.ForeignKey(Plan, on_delete=models.SET_NULL, null=True)
 
     def __str__(self):
         return self.user.username
+
+
+def post_save_usermembership_create(sender, instance, created, *args, **kwargs):
+    if created:
+        UserMembership.object.get_or_create(user=instance)
+
+    user_membership, created = UserMembership.objects.get_or_create(user=instance)
+
+    if user_membership.stripe_customer_id is None or user_membership.stripe_customer_id == "":
+        new_customer_id = stripe.Customer.create(email=instance.email)
+        bronze_plan = Plan.objects.get(plan_type='Free')
+        user_membership.stripe_customer_id = new_customer_id['id']
+        user_membership.membership = free_membership
+        user_membership.save()
 
 
 class Subscription(models.Model):

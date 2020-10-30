@@ -42,8 +42,5 @@ class Ratings(models.Model):
 
     class Meta:
         verbose_name_plural = 'Ratings'
-        unique_together = (('product', 'user_profile'),)
-        index_together = (('product', 'user_profile'),)
+       
 
-    def __str__(self):
-        return self.stars

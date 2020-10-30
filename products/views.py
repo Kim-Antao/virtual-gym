@@ -5,6 +5,7 @@ from django.contrib.auth.decorators import login_required
 from django.db.models.functions import Lower
 
 from .models import Product, Category, Ratings
+from profiles.models import UserProfile
 from .forms import ProductForm
 
 
@@ -51,23 +52,35 @@ def product_detail(request, product_id):
     product = get_object_or_404(Product, pk=product_id)
     context = {
         'product': product,
-        'average': avg_rating(product_id)
+        'average': avg_rating(product)
     }
     return render(request, 'products/product_detail.html', context)
 
 
-def avg_rating(product_id):
+def avg_rating(products):
     sum = 0
     avg = 0
-    ratings = Ratings.objects.filter(product_id)
-    sum += ratings.stars
-
+    ratings = Ratings.objects.filter(product=products)
+    for rating in ratings:
+        sum += rating.stars
     if len(ratings) > 0:
         avg = sum / len(ratings)
     else:
         avg = 0
 
     return avg
+
+
+def add_rating(request, product_id):
+    """ Add a rating for the product """
+
+    star_rating=int(request.POST.get('rate'))
+    user = get_object_or_404(UserProfile, user=request.user)
+    product_current= get_object_or_404(Product, pk=product_id)
+
+    rating = Ratings(product=product_current, user_profile=user, stars=star_rating)
+    rating.save()
+    return redirect(reverse('products'))
 
 
 @login_required
@@ -136,3 +149,6 @@ def delete_product(request, product_id):
     product.delete()
     messages.success(request, 'Product deleted!')
     return redirect(reverse('products'))
+
+
+
