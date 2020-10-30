@@ -99,6 +99,10 @@ body{
     color: black;
 }
 
+.text-red{
+    color: red;
+}
+
 .white-color{
     background-color: white;
 }
@@ -128,11 +132,17 @@ body{
     height: 100%;
     object-fit: cover;   
 }
+.membership-card-height{
+    height: 50%;
+}
 
 .membership-card-customisation{
     border: 0;
 }
 
+.membership-card-height{
+    min-height: 130px;
+}
 
 .overlay{
     height: 100%;

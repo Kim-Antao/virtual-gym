@@ -1,31 +1,35 @@
 from django.db import models
+from django.conf import settings
 
 
 class Plan(models.Model):
     name = models.CharField(max_length=100)
     image_url = models.URLField(max_length=1024, null=True, blank=True)
     image = models.ImageField(null=True, blank=True)
+    stripe_price_id = models.CharField(max_length=50, null=False)
+    price = models.DecimalField(decimal_places=2, max_digits=5, null=False)
+    currency = models.CharField(max_length=50, null=False)
 
     def __str__(self):
         return self.name
 
 
-class Course(models.Model):
-    name = models.CharField(max_length=100)
-    description = models.TextField()
+class Subscription(models.Model):
+    user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+    pricing = models.ForeignKey(Plan, on_delete=models.CASCADE, related_name='subscriptions')
+    created = models.DateTimeField(auto_now_add=True)
+    stripe_subscription_id = models.CharField(max_length=50)
+    status = models.CharField(max_length=100)
 
     def __str__(self):
-        return self.name
+        return self.user.email
 
 
-class Video(models.Model):
-    course = models.ForeignKey(Course, on_delete=models.CASCADE, related_name='videos')
+class Individual_plan(models.Model):
+    plan = models.ForeignKey(Plan, on_delete=models.CASCADE, related_name='iplan')
     title = models.CharField(max_length=150)
+    serial_number = models.IntegerField(default=1)
     description = models.TextField()
-    order = models.IntegerField(default=1)
-
-    class Meta:
-        ordering = ["order"]
 
     def __str__(self):
         return self.title
