@@ -99,6 +99,9 @@ body{
     color: black;
 }
 
+.white-color{
+    background-color: white;
+}
 .border-black{
     border: 1px solid black !important;
 }
@@ -124,6 +127,10 @@ body{
 .image-height{
     height: 100%;
     object-fit: cover;   
+}
+
+.membership-card-customisation{
+    border: 0;
 }
 
 
@@ -374,10 +381,14 @@ code from https://www.youtube.com/watch?v=8xI9o2wpP4w&feature=emb_logo
 /* pad the top a bit when navbar is collapsed on mobile */
 @media (max-width: 991px) {
     .header-container {
-        padding-top: 116px;
+        padding-top: 70px;
+    }
+
+    .logo-font{
+        font-size: 1.2rem;
     }
 
     body {
-        height: calc(100vh - 116px);
+        height: calc(100vh - 70px);
     }
 }

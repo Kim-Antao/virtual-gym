@@ -1,8 +1,8 @@
 from django.contrib import admin
-from .models import Plan, UserMembership, Subscription
 
+from .models import Course, Video, Plan
 
-# Register your models here.
 admin.site.register(Plan)
-admin.site.register(UserMembership)
-admin.site.register(Subscription)
+admin.site.register(Course)
+admin.site.register(Video)
+

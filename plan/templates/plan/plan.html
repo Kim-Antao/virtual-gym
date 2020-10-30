@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block page-header %}
+    <div class="container header-container">
+        <div class="row">
+            <div class="col"></div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block content %}
+    <div class="overlay"></div>
+    <div class="container mb-2">
+        <div class="row">
+            <div class="col mt-3">
+                <h2 class="logo-font mb-4">Plans</h2>
+                <hr>
+            </div>
+        </div>
+        <div class="row">
+            {% for p in plan %}
+            <div class="col-12 col-md-4 mb-3">
+                <div class="card membership-card-customisation" style="width: 18rem;">
+                    {% if p.image %}
+                        <img src="{{ p.image.url }}" class="card-img-top" alt="{{ p.name }}">
+                        {% else %}
+                        <a href="">
+                            <img class="card-img-top img-fluid" src="{{ MEDIA_URL }}noimage.png" alt="{{ p.name }}">
+                        </a>
+                    {% endif %}
+                   <div class="card-body">
+                        <h5 class="card-title">{{p.name}}</h5>
+                        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                        <a href="#" class="btn rounded-0 btn-black w-100">Choose this plan</a>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+{% endblock %}
+

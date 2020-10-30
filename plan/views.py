@@ -1,3 +1,10 @@
 from django.shortcuts import render
+from .models import Plan
 
-# Create your views here.
+
+def all_plan(request):
+    plan = Plan.objects.all()
+    context = {
+        'plan': plan,
+    }
+    return render(request, 'plan/plan.html', context)
