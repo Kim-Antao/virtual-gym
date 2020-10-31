@@ -133,12 +133,9 @@ body{
     object-fit: cover;   
 }
 
-
 .membership-card-customisation{
     border: 0;
 }
-
-
 
 .overlay{
     height: 100%;
@@ -344,7 +341,7 @@ code from https://www.youtube.com/watch?v=8xI9o2wpP4w&feature=emb_logo
 .star{
     color: goldenrod;
     font-size: 2.0rem;
-    padding: 0 1rem; /* space out the stars */
+   
 }
 
 .star::before{
@@ -366,6 +363,9 @@ code from https://www.youtube.com/watch?v=8xI9o2wpP4w&feature=emb_logo
     }
     .sort-container-margin{
         margin-left: 35px;
+    }
+    .sort-container-width{
+        width: 50%;
     }
 }
 
@@ -396,5 +396,31 @@ code from https://www.youtube.com/watch?v=8xI9o2wpP4w&feature=emb_logo
 
     body {
         height: calc(100vh - 70px);
+    }
+
+    .sort-container-width{
+        width: 100%;
+    }
+    .margin-center{
+        margin-left: auto;
+        margin-right: auto;
+    }
+    #delivery-banner h4 {
+        font-size: .9rem;
+    }
+
+    .btn.btn-outline-black.rounded-0,
+    .btn.btn-black.rounded-0 {
+        padding: .375rem .375rem;
+    }
+
+    .btn.btn-outline-black.rounded-0.btn-lg,
+    .btn.btn-black.rounded-0.btn-lg {
+        padding: .375rem .375rem;
+        font-size: .75rem;
+    }
+
+    .increment-qty, .decrement-qty {
+        padding: .25rem .5rem !important;
     }
 }

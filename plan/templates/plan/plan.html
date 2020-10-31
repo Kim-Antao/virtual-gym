@@ -20,7 +20,7 @@
         </div>
         <div class="row">
             {% for p in plan %}
-            <div class="col-12 col-md-4 mb-3">
+            <div class="col-12 col-md-4 mb-4">
                 <div class="card membership-card-customisation" style="width: 18rem;">
                     {% if p.image %}
                         <img src="{{ p.image.url }}" class="card-img-top" alt="{{ p.name }}">
@@ -32,15 +32,14 @@
                     <div class="card-body">
                         <h5 class="card-title text-black"><strong>{{p.name}}</strong></h5>
                         {% for s in service %}
-                            {% if s.pricing_tiers == p.name %}
-                                <p class="card-text membership-card-height text-black">{{service.description}}</p>
+                        <ul>
+                           {% if s.pricing_tiers.name == p.name %}
+                               <li><p class="card-text membership-card-height text-black">{{s.description}}</p></li>
                             {% endif %}
+                        </ul>
                         {% endfor %}
                         {% if request.user.is_authenticated %}
-                            <!-- check if the user has subscribed
-                                if the user has subscribed already display a message
-                            -->
-                            <a href="" class="btn rounded-0 btn-black w-100">Choose this plan</a>
+                            <a href="{% url 'subs_register' %}" class="btn rounded-0 btn-black w-100">Choose this plan</a>
                         {% else %} 
                             <a href="{% url 'account_login' %}" class="btn rounded-0 btn-black w-100">Choose this plan</a>
                         {% endif %}
@@ -48,6 +47,26 @@
                     </div>
                 </div>
             </div>
+            {% if forloop.counter|divisibleby:1 %}
+                <div class="col-12 d-sm-none mb-5">
+                    <hr>
+                </div>
+            {% endif %}                        
+            {% if forloop.counter|divisibleby:2 %}
+                <div class="col-12 d-none d-sm-block d-md-block d-lg-none mb-5">
+                    <hr>
+                </div>
+            {% endif %}
+            {% if forloop.counter|divisibleby:3 %}
+                <div class="col-12 d-none d-lg-block d-xl-none mb-5">
+                    <hr>
+                </div>
+            {% endif %}
+            {% if forloop.counter|divisibleby:4 %}
+                <div class="col-12 d-none d-xl-block mb-5">
+                    <hr>
+                </div>
+            {% endif %}
             {% endfor %}
         </div>
     </div>
