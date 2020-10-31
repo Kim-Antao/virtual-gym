@@ -45,19 +45,21 @@ Below are some user stories :
     next to their delivery information
 
 1. __User wants to buy a subscription :__ 
-
-
-1. __User wants to cancel a subscription :__ 
-
+    user clicks on plan, chooses the desired service, gets redirected to a registration page if logged in. if not logged in, the user will be asked to login.
+    upon registration, if the user has not bought other plan, it will lead him up to the billing page. Once the form is submitted, if all details entered are valid,
+    it will print a success message.
 
 1. __User wants to view activity board :__ 
+    user clicks on account and chooses activity board from the dropdown. A page is displayed with all the members and the memeship they chose.
 
 1. __User wants to log out :__ 
     User chooses the logout option from the navigation, a page will be displayed asking the user if they are sure, if yes they will be logged out of the system.
     If the user clicks on cancel the user will still be logged in
 
 
-__During the early stages, a rough__ [wireframe](static/pdf/ .pdf) __was made using balsamiq__  
+#### During the early stages, rough wireframes were made using balsamiq  
+* [Desktop](static/pdf/desktop_wireframe.pdf)
+* [Android](static/pdf/android_wireframe.pdf)
 
 
 ## Features
@@ -134,19 +136,23 @@ Try to submit the form with all inputs valid and verify that the success message
 Try to submit the required fields with no data and verify that an error message is displayed.  
 Try to submit the form with incorrect bank details and verify that an error message is displayed.
 
-**review modal**
+**Review modal:**  
 Try to submit the modal with no ratings and verify that an error message appears.
 Try to choose a rating and leave the modal without submit and verify that the product doesnt have that rating stored.  
 Try to submit the modal with some rating and verify that the rating gets saved
 
 
 **Add product:**  
+Try to add a product with required field left blank and verify that the appropriate message appears  
+Try to add a product with valid field values and verify that they are saved in the database
 
-**Delete product**
+**Delete product:**     
+Click on the link to delete and verify that the product gets deleted from the database.
 
-**Edit product**
+**Edit product:**  
+Try to edit a product with required field left blank and verify that the appropriate message appears  
+Try to edit a product with valid field values and verify that they are saved in the database
 
-**review modal**
 
 ## Deployment
 
@@ -154,19 +160,30 @@ This project is used using [Heroku](https://dashboard.heroku.com/apps).
 Steps taken to deploy this project are as follows:  
 * Create an app in Heroku  
 * In the terminal typed the follow commands:  
-    1. heroku login  
-    1. heroku apps
-    1. git init
+    1.  pip3 install dj_database_url
+    1. pip3 install psycog2-binary
+    1. pip3 freeze > requirements.txt
+    1. import dj_database_url in virtual_gym/settings.py
+    1. add the default database in virtual_gym/settings.py
+    1. migrate the changes
+    1. load the data (ex: python3 <span>manage.py</span> loaddata categories)
+    1. pip3 install gunicorn
     1. pip3 freeze --local > requirements
-    1. echo web: python <span>app.py</span> > Procfile
-    1. git add.
+    1.  echo web: gunicorn virtual_gym.wsgi:application > Procfile
+    1. heroku login  
+    1. in <span>settings.py</span> add the link in allowed host
+    1. git add .
     1. git commit -m "initial commit"
     1. heroku git ::remote
     1. git push heroku master
-    1. heroku ps:scale web=1
+    1. create an AWS account
+    1. connect Django to s3
+    
 * In the herko app, go to settings:
     1. IP = 0.0.0.0
     1. PORT = 5000
+    1. set the secret keys
+
  
 * All the environment values have been saved in the env.py file
 
