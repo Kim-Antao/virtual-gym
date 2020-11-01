@@ -39,7 +39,7 @@
                         </ul>
                         {% endfor %}
                         {% if request.user.is_authenticated %}
-                            <a href="{% url 'subs_register' %}" class="btn rounded-0 btn-black w-100">Choose this plan</a>
+                            <a href="{% url 'user_check' %}" class="btn rounded-0 btn-black w-100">Choose this plan</a>
                         {% else %} 
                             <a href="{% url 'account_login' %}" class="btn rounded-0 btn-black w-100">Choose this plan</a>
                         {% endif %}

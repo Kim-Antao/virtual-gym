@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect, reverse
 from django.conf import settings
 from .models import Plan, Service, SubscriberRegistration
 from .forms import SubsRegistrationForm
@@ -15,6 +15,13 @@ def all_plan(request):
         'service': service,
     }
     return render(request, 'plan/plan.html', context)
+
+
+def user_check(request):
+    if SubscriberRegistration.objects.filter(user=request.user):
+        return render(request, 'plan/message.html')
+    else:
+        return redirect(subs_register)
 
 
 def subs_register(request):
@@ -36,9 +43,11 @@ def subs_register(request):
                                                   goal=goal,
                                                   bmi=bmi,
                                                   )
-    form = SubsRegistrationForm()
-    template = 'plan/subs_registrations.html'
-    context = {
-        'form': form
-    }
-    return render(request, template, context)
+            return redirect(reverse('subscription_checkout'))
+    else:
+        form = SubsRegistrationForm()
+        template = 'plan/subs_registrations.html'
+        context = {
+            'form': form
+        }
+        return render(request, template, context)
