@@ -49,7 +49,7 @@ INSTALLED_APPS = [
     'checkout',
     'profiles',
     'plan',
-    'subscription_checkout',
+    
     # Other
     'crispy_forms',
 
@@ -184,4 +184,13 @@ STRIPE_CURRENCY = 'gbp'
 STRIPE_PUBLIC_KEY = os.getenv('STRIPE_PUBLIC_KEY', '')
 STRIPE_SECRET_KEY = os.getenv('STRIPE_SECRET_KEY', '')
 STRIPE_WH_SECRET = os.getenv('STRIPE_WH_SECRET', '')
+STRIPE_B_PLAN_MONTHLY_ID = os.getenv('STRIPE_B_PLAN_MONTHLY_ID', '')
+STRIPE_B_PLAN_QUATERLY_ID = os.getenv('STRIPE_B_PLAN_QUATERLY_ID', '')
+STRIPE_B_PLAN_ANNUAL_ID = os.getenv('STRIPE_B_PLAN_ANNUAL_ID', '')
+STRIPE_S_PLAN_MONTHLY_ID = os.getenv('STRIPE_S_PLAN_MONTHLY_ID', '')
+STRIPE_S_PLAN_QUATERLY_ID = os.getenv('STRIPE_S_PLAN_QUATERLY_ID', '')
+STRIPE_S_PLAN_ANNUAL_ID = os.getenv('STRIPE_S_PLAN_ANNUAL_ID', '')
+STRIPE_G_PLAN_MONTHLY_ID = os.getenv('STRIPE_S_PLAN_MONTHLY_ID', '')
+STRIPE_G_PLAN_QUATERLY_ID = os.getenv('STRIPE_S_PLAN_QUATERLY_ID', '')
+STRIPE_G_PLAN_ANNUAL_ID = os.getenv('STRIPE_S_PLAN_ANNUAL_ID', '')
 DEFAULT_FROM_EMAIL = 'virtualgym@example.com'

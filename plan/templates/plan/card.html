@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block stripejs %}
+<script src="https://js.stripe.com/v3/"></script>
+<script src="{% static 'plan/js/card.js' %}"></script>
+<script>    
+card('{{STRIPE_PUBLIC_KEY}}','{{customer_email}}');
+</script>
+{% endblock %}
+
+{% block page-header %}
+    <div class="container header-container">
+        <div class="row">
+            <div class="col"></div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block content %}
+    <div class="overlay"></div>
+    <div class="container mb-2">
+       <form action="{% url 'card' %}" method="post" id="payment-form">
+       {% csrf_token %}
+        <div id="card-element1"></div>
+        <div id="card-errors1" role="alert"></div>
+        <input type="hidden" name="payment_intent_id" value="{{payment_intent_id}}">
+        <input type="hidden" name="stripe_plan_id" value="{{ stripe_plan_id }}" >
+        <input type="hidden" name="automatic" value="{{ automatic }}" >
+        <button id="submit-button">Checkout</button>
+       </form>
+    </div>
+{% endblock %}
+{% block postloadjs %}
+    {{ block.super }}
+    {{ stripe_public_key|json_script:"id_stripe_public_key" }}
+    {{ client_secret|json_script:"id_client_secret" }}
+{% endblock %}
+

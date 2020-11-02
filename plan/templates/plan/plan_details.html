@@ -1,0 +1,58 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block page-header %}
+    <div class="container header-container">
+        <div class="row">
+            <div class="col"></div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block content %}
+    <div class="overlay"></div>
+    <div class="container mb-2">
+        <div class="row">
+            <div class="col mt-3">
+                <h2 class="logo-font mb-4">Choose a payment plan</h2>
+                <hr>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-12">
+            <h4>You have chosen {{current_register.pricing}} Plan</h4>
+            </div>
+        </div>
+        <div>
+            <form method="POST" action="{% url 'payment_method' %}">
+            {% csrf_token %}
+            <div class="form-group">
+                <label class="mr-sm-2 sr-only" for="inlineFormCustomSelect">Payment Plan</label>
+                <select class="custom-select mr-sm-2" id="inlineFormCustomSelect" name="plan">
+                    <option selected>Choose...</option>
+                    {% for c in current_plan %}
+                        <option value="{{c.period }}" > {{c.price }} <small>{{ c.period }}</small></option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="form-group">
+                <div class="custom-control custom-checkbox mr-sm-2">
+                <input type="checkbox" class="custom-control-input" id="customControlAutosizing" name="automatic" checked>
+                <label class="custom-control-label" for="customControlAutosizing">Remember my preference</label>
+                </div>
+                <p>We will be automatically charge you after the end of the billing cycle</p>
+            </div>
+            <div class="form-group">
+                <button class="btn btn-lg btn-black rounded-0" type="submit">
+                    <span class="font-weight-bold">Complete Order</span>
+                    <span class="icon">
+                        <i class="fas fa-lock"></i>
+                    </span>
+                </button>
+            </div>
+            <input type="hidden" value="{{current_register.pricing.id}}" name="payplanname">
+            </form>
+        </div>
+    </div>
+{% endblock %}
+
