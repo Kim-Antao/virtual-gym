@@ -211,6 +211,7 @@ The membership images are taken from:
 * [Star Reviews](https://www.youtube.com/watch?v=dPCj6Qkq13Y&feature=emb_logo)
 * [JustDjango](https://www.youtube.com/watch?v=zu2PBUHMEew&t=1803s)
 * [Forms](https://www.youtube.com/watch?v=3XOS_UpJirU&feature=emb_logo)
+* [Django Lessons](https://www.youtube.com/watch?v=Mw__Pw1iGgA)
 
 I received inspiration for this project from:  
 * [Fiit Gym](https://fiit.tv/)

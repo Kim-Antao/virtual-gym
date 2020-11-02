@@ -23,8 +23,14 @@ def all_plan(request):
 
 
 def user_check(request, pid):
+    # check if the user has already registered
     if SubscriberRegistration.objects.filter(user=request.user):
-        return render(request, 'plan/message.html')
+        this_user = SubscriberRegistration.objects.filter(user=request.user)
+        # check if the user has an active plan
+        if SubscriberRegistration.has_paid(this_user):
+            return render(request, 'plan/message.html')
+        else:
+            return redirect(subs_register, id=pid)
     else:
         return redirect(subs_register, id=pid)
 
@@ -33,24 +39,41 @@ def subs_register(request, id):
     if request.method == 'POST':
         form = SubsRegistrationForm(request.POST)
         if form.is_valid():
-            age = form.cleaned_data['age']
-            height = form.cleaned_data['height']
-            weight = form.cleaned_data['weight']
-            gender = form.cleaned_data['gender']
-            goal = form.cleaned_data['goal']
-            bmi = form.cleaned_data['bmi']
-            pricing = Plan(id=id)
-            current_plan = PlanPricing.objects.filter(planname=pricing)
+            if SubscriberRegistration.objects.filter(user=request.user):
+                SubscriberRegistration.age = form.cleaned_data['age']
+                SubscriberRegistration.height = form.cleaned_data['height']
+                SubscriberRegistration.weight = form.cleaned_data['weight']
+                SubscriberRegistration.gender = form.cleaned_data['gender']
+                SubscriberRegistration.goal = form.cleaned_data['goal']
+                SubscriberRegistration.bmi = form.cleaned_data['bmi']
+                SubscriberRegistration.pricing = Plan(id=id)
+                SubscriberRegistration.save(update_fields=['age',
+                                                           'height',
+                                                           'weight',
+                                                           'gender',
+                                                           'goal',
+                                                           'bmi',
+                                                           'pricing'])
+            else:
+                age = form.cleaned_data['age']
+                height = form.cleaned_data['height']
+                weight = form.cleaned_data['weight']
+                gender = form.cleaned_data['gender']
+                goal = form.cleaned_data['goal']
+                bmi = form.cleaned_data['bmi']
+                pricing = Plan(id=id)
+                current_plan = PlanPricing.objects.filter(planname=pricing)
 
-            SubscriberRegistration.objects.create(user=request.user,
-                                                  age=age,
-                                                  height=height,
-                                                  weight=weight,
-                                                  gender=gender,
-                                                  goal=goal,
-                                                  bmi=bmi,
-                                                  pricing=pricing,
-                                                  )
+                SubscriberRegistration.objects.create(user=request.user,
+                                                    age=age,
+                                                    height=height,
+                                                    weight=weight,
+                                                    gender=gender,
+                                                    goal=goal,
+                                                    bmi=bmi,
+                                                    pricing=pricing,
+                                                    )
+
             current_register = SubscriberRegistration.objects.get(user=request.user)
             context = {
                 'current_register': current_register,
@@ -79,7 +102,7 @@ def payment_method(request):
     print(planInst)
     context = {}
     payment_intent = stripe.PaymentIntent.create(
-        amount=round(14.00*100),
+        amount=planInst.amount,
         currency=settings.STRIPE_CURRENCY,
         payment_method_types=['card']
     )
@@ -115,4 +138,16 @@ def card(request):
             payment_intent_id,
             payment_method=payment_method_id
         )
-    return render(request, 'plan/thankyou.html')
+    context = {
+        'email': request.user.email,
+    }
+
+    return render(request, 'plan/thankyou.html', context)
+
+
+def activity(request):
+    subscriber = SubscriberRegistration.objects.all()
+    context = {
+        'subscriber': subscriber
+    }
+    return render(request, 'plan/activity.html', context)

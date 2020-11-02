@@ -7,4 +7,5 @@ urlpatterns = [
     path('checks/<pid>', views.user_check, name='user_check'),
     path('paymentMethod/', views.payment_method, name='payment_method'),
     path('successMessage/', views.card, name='card'),
+    path('acivityBoard/', views.activity, name='activity'),
 ]
