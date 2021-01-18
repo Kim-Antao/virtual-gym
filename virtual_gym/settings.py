@@ -128,7 +128,7 @@ WSGI_APPLICATION = 'virtual_gym.wsgi.application'
 
 if 'DATABASE_URL' in os.environ:
     DATABASES = {
-        'default': 'postgres://ehnqghwhxtpduy:2f68eba06419165eca815fe2e88e9a9f20ea6c529e4889c91d7a7815149af70a@ec2-54-247-107-109.eu-west-1.compute.amazonaws.com:5432/d9j3pv9clso6au'
+        'default': dj_database_url.parse('postgres://ehnqghwhxtpduy:2f68eba06419165eca815fe2e88e9a9f20ea6c529e4889c91d7a7815149af70a@ec2-54-247-107-109.eu-west-1.compute.amazonaws.com:5432/d9j3pv9clso6au')
     }
 else:
     DATABASES = {
@@ -137,6 +137,7 @@ else:
             'NAME':  os.path.join(BASE_DIR, 'db.sqlite3'),
         }
     }
+
 
 # Password validation
 # https://docs.djangoproject.com/en/3.1/ref/settings/#auth-password-validators
